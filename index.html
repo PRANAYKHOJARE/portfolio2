@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pranay Khojare | Frontend Developer</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <style>
+      :root {
+        --primary: #4a00e0;
+        --secondary: #00f5ff;
+        --dark: #0f0f1a;
+        --light: #f5f5ff;
+        --gray: #888;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: var(--dark);
+        color: var(--light);
+        overflow-x: hidden;
+      }
+
+      /* Navigation */
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 1.5rem 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        background-color: rgba(15, 15, 26, 0.8);
+        backdrop-filter: blur(10px);
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        color: var(--light);
+        text-decoration: none;
+        font-weight: 500;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--secondary);
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--secondary);
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      /* Hamburger Menu */
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        z-index: 101;
+      }
+
+      .hamburger span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--light);
+        margin: 5px 0;
+        transition: all 0.3s ease;
+      }
+
+      /* Mobile Navigation */
+      @media (max-width: 768px) {
+        .hamburger {
+          display: block;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 70%;
+          height: 100vh;
+          background-color: rgba(15, 15, 26, 0.95);
+          backdrop-filter: blur(15px);
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 2.5rem;
+          transition: right 0.5s ease;
+        }
+
+        .nav-links.active {
+          right: 0;
+        }
+
+        .hamburger.active span:nth-child(1) {
+          transform: rotate(45deg) translate(5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+          transform: rotate(-45deg) translate(5px, -6px);
+        }
+      }
+
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 0 10%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-content {
+        max-width: 600px;
+        z-index: 10;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(to right, var(--light), var(--secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: var(--gray);
+      }
+
+      .hero p {
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .btn-primary {
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        color: var(--dark);
+        border: none;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(74, 0, 224, 0.3);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--secondary);
+        border: 2px solid var(--secondary);
+      }
+
+      .btn-secondary:hover {
+        background: var(--secondary);
+        color: var(--dark);
+      }
+
+      /* Particles Background */
+      #particles-js {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+
+      /* About Section */
+      .section {
+        padding: 5rem 10%;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        text-align: center;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        border-radius: 2px;
+      }
+
+      .about-content {
+        display: flex;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .about-text {
+        flex: 1;
+      }
+
+      .about-text h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        color: var(--secondary);
+      }
+
+      .about-text p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .skill {
+        background-color: rgba(74, 0, 224, 0.2);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        border: 1px solid var(--primary);
+        font-size: 0.9rem;
+      }
+
+      .about-image {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+      }
+
+      .profile-img {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid var(--primary);
+        box-shadow: 0 0 30px rgba(74, 0, 224, 0.5);
+      }
+
+      /* Experience Section */
+      .timeline {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .timeline::after {
+        content: "";
+        position: absolute;
+        width: 4px;
+        background: linear-gradient(
+          to bottom,
+          var(--primary),
+          var(--secondary)
+        );
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -2px;
+        border-radius: 2px;
+      }
+
+      .timeline-item {
+        padding: 20px 40px;
+        position: relative;
+        width: 50%;
+        box-sizing: border-box;
+      }
+
+      .timeline-item::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: var(--secondary);
+        border-radius: 50%;
+        top: 30px;
+        z-index: 1;
+      }
+
+      .left {
+        left: 0;
+      }
+
+      .right {
+        left: 50%;
+      }
+
+      .left::after {
+        right: -10px;
+      }
+
+      .right::after {
+        left: -10px;
+      }
+
+      .timeline-content {
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .timeline-content:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .timeline-date {
+        color: var(--secondary);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .timeline-title {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Projects Section */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+        gap: 2rem;
+        padding: 0 1rem;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .project-card {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      @media (max-width: 768px) {
+        .projects-grid {
+          grid-template-columns: 1fr;
+          padding: 0 0.5rem;
+          gap: 1.5rem;
+        }
+
+        .project-card {
+          margin-bottom: 1rem;
+        }
+
+        .project-card:hover {
+          transform: none; /* Remove hover effect on mobile */
+        }
+      }
+
+      .project-image {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .project-content {
+        padding: 1.25rem;
+      }
+
+      .project-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .project-description {
+        margin-bottom: 1rem;
+        color: var(--gray);
+        line-height: 1.5;
+        font-size: 0.95rem;
+      }
+
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .tech {
+        background-color: rgba(0, 245, 255, 0.1);
+        color: var(--secondary);
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        white-space: nowrap;
+      }
+
+      .project-links {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 480px) {
+        .project-content {
+          padding: 1rem;
+        }
+
+        .project-title {
+          font-size: 1.1rem;
+        }
+
+        .project-description {
+          font-size: 0.9rem;
+        }
+
+        .project-links {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .project-links .btn {
+          width: 100%;
+          text-align: center;
+        }
+      }
+
+      /* Contact Section */
+      .contact-container {
+        display: flex;
+        gap: 3rem;
+      }
+
+      .contact-info {
+        flex: 1;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .contact-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 1rem;
+        font-size: 1.2rem;
+      }
+
+      .contact-form {
+        flex: 1;
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 2rem;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        color: var(--light);
+      }
+
+      .form-group textarea {
+        height: 150px;
+        resize: vertical;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 2rem;
+        background-color: rgba(0, 0, 0, 0.2);
+        margin-top: 3rem;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .social-link {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.3s ease;
+      }
+
+      .social-link:hover {
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        transform: translateY(-3px);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero h2 {
+          font-size: 1.3rem;
+        }
+
+        .about-content {
+          flex-direction: column;
+        }
+
+        .timeline::after {
+          left: 31px;
+        }
+
+        .timeline-item {
+          width: 100%;
+          padding-left: 70px;
+          padding-right: 25px;
+        }
+
+        .timeline-item::after {
+          left: 21px;
+        }
+
+        .left::after,
+        .right::after {
+          left: 21px;
+        }
+
+        .right {
+          left: 0;
+        }
+
+        .contact-container {
+          flex-direction: column;
+        }
+      }
+
+      /* Toast notification */
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #4caf50;
+        color: white;
+        padding: 16px;
+        border-radius: 4px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .toast.error {
+        background-color: #f44336;
+      }
+
+      /* ✅ Global background animation style */
+#particles-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;            /* stays behind everything */
+  pointer-events: none;  /* lets buttons/links work */
+  background-color: var(--dark);
+}
+
+/* ✅ Keep all content above the global background */
+section,
+footer,
+header,
+nav,
+.hero,
+#about,
+#experience,
+#projects,
+#contact {
+  position: relative;
+  z-index: 1; /* ensures it's above the background */
+}
+
+/* === Skills Section Styling === */
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.skill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid var(--secondary);
+  color: var(--secondary);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* === Hover effect === */
+.skill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  z-index: -1;
+  border-radius: 10px;
+}
+
+.skill:hover::before {
+  transform: scaleX(1);
+}
+
+.skill:hover {
+  color: var(--dark);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.4);
+  transform: translateY(-4px);
+}
+
+/* === Profile Image Animations === */
+.profile-img {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--secondary);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 2;
+  animation: float 3s ease-in-out infinite; /* 🌀 floating motion */
+}
+
+/* Hover glow effect */
+.profile-img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 40px rgba(0, 245, 255, 0.7);
+  border-color: var(--primary);
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Optional rotating gradient ring around photo */
+.profile-img::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: conic-gradient(var(--primary), var(--secondary), var(--primary));
+  z-index: -1;
+  animation: spin 4s linear infinite;
+  opacity: 0.4;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.about-image { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+
+/* === Skills Section (Same Look as "Contact Me" Button) === */
+.skill {
+  background: transparent;
+  color: var(--secondary);
+  border: 2px solid var(--secondary);
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px; /* same round shape */
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  z-index: 1;
+  text-align: center;
+  min-width: 120px;
+}
+
+/* Gradient background animation (like Contact Me hover) */
+.skill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  z-index: -1;
+  border-radius: 50px;
+}
+
+/* Neon glow border */
+.skill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50px;
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.4),
+              0 0 25px rgba(0, 245, 255, 0.3);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+/* Hover = same as Contact Me */
+.skill:hover::before {
+  transform: scaleX(1);
+}
+
+.skill:hover::after {
+  opacity: 1;
+}
+
+.skill:hover {
+  color: var(--dark);
+  border-color: transparent;
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(0, 245, 255, 0.5);
+}
+
+/* === About Section Layout === */
+.about-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 60px;
+  margin-top: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* === Text === */
+.about-text {
+  flex: 1;
+  max-width: 600px;
+  color: var(--light);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+/* === Profile Image === */
+.about-image {
+  flex: 0 0 320px; /* more width on right */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Rotating gradient ring */
+.profile-ring {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: conic-gradient(var(--primary), var(--secondary), var(--primary));
+  /* animation: spin 8s linear infinite; */
+  padding: 8px;
+  box-shadow: 0 0 40px rgba(0, 245, 255, 0.4);
+}
+
+/* === Profile Image (clean, glowing hover like Contact Me) === */
+.profile-img {
+  width: 270px;
+  height: 270px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--secondary);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+  transition: all 0.4s ease;
+  z-index: 2;
+  position: relative;
+}
+
+/* Hover effect — same glow feel as Contact Me button */
+.profile-img:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 35px rgba(0, 245, 255, 0.6);
+  border-color: var(--primary);
+  filter: brightness(1.1);
+}
+
+/* Container positioning to align with 'Who am I?' text */
+.about-image {
+  flex: 0 0 270px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 40px; /* pushes it to the right of the text */
+}
+
+/* Responsive fix for small screens */
+@media (max-width: 768px) {
+  .about-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .about-image {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+}
+
+/* Skills below About section */
+.skills-title {
+  color: var(--secondary);
+  margin-top: 60px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Responsive fix */
+@media (max-width: 768px) {
+  .about-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-image {
+    margin-top: 20px;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <div id="particles-bg"></div> <!-- ⬅️ add this for global motion background -->
+
+    <!-- Navigation -->
+    <nav>
+      <div class="logo">PK</div>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h1>Hi, I'm Pranay Khojare</h1>
+<h2>Software Engineer | Java Developer | Full Stack Developer</h2>
+        <p>
+Entry-Level Software Engineer with strong expertise in Core Java, SQL, 
+Object-Oriented Programming, and Full-Stack Web Development (MERN Stack). 
+Experienced in Spring Boot backend development, RESTful APIs, and cloud-based 
+workflows using Microsoft Azure and Azure Data Factory. Passionate about 
+building scalable, secure, and high-performance applications.
+</p>
+<div class="cta-buttons">
+          <a href="#projects" class="btn btn-secondary">View My Work</a>
+          <a href="#contact" class="btn btn-secondary">Contact Me</a>
+        </div>
+      </div>
+      <div id="particles-js"></div>
+    </section>
+
+    <!-- About Section -->
+   <!-- About Section -->
+<section class="section" id="about">
+  <h2 class="section-title">About Me</h2>
+
+  <div class="about-content">
+    <!-- Left: Text -->
+    <div class="about-text">
+      <h3>Who am I?</h3>
+      <p>
+I am a Software Engineer specializing in Core Java, Spring Boot, and full-stack 
+development using the MERN stack. I have built and deployed scalable web 
+applications, implemented RESTful APIs, and worked with relational and NoSQL 
+databases including MySQL and MongoDB.
+</p>
+
+<p>
+Through multiple internships with Microsoft, Edunet Foundation, and IBM 
+SkillsBuild, I gained hands-on experience in Microsoft Azure, AI-based systems, 
+cloud deployment, and Generative AI tools. I focus on writing clean, efficient, 
+and maintainable code while following SDLC best practices.
+</p>
+
+    </div>
+
+    <!-- Right: Profile Image -->
+    <div class="about-image">
+      <div class="profile-ring">
+        <img src="./images/Profile_photo_linkdin .png" alt="Pranay Khojare" class="profile-img" />
+      </div>
+    </div>
+  </div>
+
+  <!-- My Skills below -->
+  <h3 class="skills-title">My Skills</h3>
+  <div class="skills">
+    <span class="skill">Core Java</span>
+<span class="skill">Spring Boot</span>
+<span class="skill">JavaScript</span>
+<span class="skill">React.js</span>
+<span class="skill">Node.js</span>
+<span class="skill">Express.js</span>
+<span class="skill">MySQL</span>
+<span class="skill">MongoDB</span>
+<span class="skill">RESTful APIs</span>
+<span class="skill">JDBC</span>
+<span class="skill">Azure</span>
+<span class="skill">Azure Data Factory</span>
+<span class="skill">Docker</span>
+<span class="skill">Git & GitHub</span>
+<span class="skill">DSA</span>
+
+
+
+
+  </div>
+</section>
+
+   <!-- Experience Section -->
+<section class="section" id="experience">
+  <h2 class="section-title">Experience & Education</h2>
+  <div class="timeline">
+
+    <!-- Microsoft Elevate Intern -->
+    <div class="timeline-item left">
+      <div class="timeline-content">
+        <div class="timeline-date">Jan 2026 – Feb 2026</div>
+        <h3 class="timeline-title">Microsoft Elevate Intern – Azure</h3>
+        <h4>AICTE + Microsoft</h4>
+        <p>
+          Worked with Azure compute, storage, and AI services. 
+          Developed an AI-Based Student Placement Readiness Predictor 
+          using Python, Random Forest, and Streamlit.
+        </p>
+      </div>
+    </div>
+
+    <!-- Cybersecurity Internship -->
+    <div class="timeline-item right">
+      <div class="timeline-content">
+        <div class="timeline-date">Dec 2025 – Jan 2026</div>
+        <h3 class="timeline-title">Cybersecurity with Generative AI Intern</h3>
+        <h4>Edunet Foundation – AICTE + VOIS</h4>
+        <p>
+          Built an AI-based Network Intrusion Detection System 
+          using Python, Machine Learning, and Wireshark.
+        </p>
+      </div>
+    </div>
+
+    <!-- AI & Cloud Internship -->
+    <div class="timeline-item left">
+      <div class="timeline-content">
+        <div class="timeline-date">Sep 2025 – Oct 2025</div>
+        <h3 class="timeline-title">AI & Cloud Intern</h3>
+        <h4>AICTE • Edunet Foundation & IBM SkillsBuild</h4>
+        <p>
+          Completed a 4-week internship focused on Artificial Intelligence 
+          and Cloud Computing with project-based learning.
+        </p>
+      </div>
+    </div>
+
+    <!-- Freelancer -->
+    <div class="timeline-item right">
+      <div class="timeline-content">
+        <div class="timeline-date">Feb 2023 – Present</div>
+        <h3 class="timeline-title">Full Stack Web Developer</h3>
+        <h4>Freelancer</h4>
+        <p>
+          Designed and deployed custom web applications using Java, React, 
+          and modern frontend technologies. Improved performance and UI/UX.
+        </p>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="timeline-item left">
+      <div class="timeline-content">
+        <div class="timeline-date">Bachelor of Engineering</div>
+        <h3 class="timeline-title">Prof Ram Meghe College of Engineering & Management</h3>
+        <p>CGPA: 8.22</p>
+      </div>
+    </div>
+
+    <div class="timeline-item right">
+      <div class="timeline-content">
+        <div class="timeline-date">Diploma in Civil Engineering</div>
+        <h3 class="timeline-title">Government Polytechnic Amravati</h3>
+        <p>Percentage: 77.16%</p>
+      </div>
+    </div>
+
+    <div class="timeline-item left">
+      <div class="timeline-content">
+        <div class="timeline-date">High School</div>
+        <h3 class="timeline-title">Fatima Convent High School Achalpur</h3>
+        <p>MSBSHSE: 78.80%</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+      <h2 class="section-title">My Projects</h2>
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="project-card" data-aos="fade-up">
+          <img
+            src="./images/Complaint.png"
+            alt="Complaint Management System"
+            class="project-image"
+          />
+          <div class="project-content">
+            <h3 class="project-title">Complaint Management System</h3>
+            <p class="project-description">
+              Final-year group project developed using Java, MySQL, Apache
+              Tomcat, and Eclipse IDE. Features user/admin dashboards, complaint
+              tracking, media upload, feedback system, and real-time status
+              updates. Deployed on college server with cloud integration.
+            </p>
+            <div class="project-tech">
+              <span class="tech">Java</span>
+              <span class="tech">MySQL</span>
+              <span class="tech">Apache Tomcat</span>
+              <span class="tech">Eclipse IDE</span>
+            </div>
+            <div class="project-links">
+              <a
+                href="https://github.com/PRANAYKHOJARE"
+                class="btn btn-secondary"
+                >Code</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+  <img src="./images/1.png" alt="VibeCode Editor" class="project-image" />
+  <div class="project-content">
+    <h3 class="project-title">VibeCode – AI-Powered Browser IDE</h3>
+    <p class="project-description">
+      Built a browser-based IDE with real-time code execution using WebContainers. 
+      Integrated Ollama for localized AI-assisted coding and debugging. 
+      Implemented secure authentication with NextAuth and persistent storage using Prisma.
+    </p>
+    <div class="project-tech">
+      <span class="tech">Next.js</span>
+      <span class="tech">Node.js</span>
+      <span class="tech">Prisma</span>
+      <span class="tech">NextAuth</span>
+      <span class="tech">Ollama</span>
+      <span class="tech">WebContainers</span>
+    </div>
+    <div class="project-links">
+      <a href="https://github.com/PRANAYKHOJARE/coffee-vibe-editor" class="btn btn-secondary" target="_blank">Code</a>
+    </div>
+  </div>
+</div>
+
+        <!-- Project 2 -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+          <img
+            src="./images/query finder robot .png"
+            alt="Query Finder Robot"
+            class="project-image"
+          />
+          <div class="project-content">
+            <h3 class="project-title">Query Finder Robot</h3>
+            <p class="project-description">
+              A Python based project leveraging Raspberry Pi 3, Speech
+              Recognition, and pyttsx3 to enable hands-free query interaction
+              with voice commands powered by AI and ChatGPT.
+            </p>
+            <div class="project-tech">
+              <span class="tech">Raspberry Pi 3</span>
+              <span class="tech">Speech Recognition</span>
+              <span class="tech">pyttsx3</span>
+              <span class="tech">ChatGPT</span>
+            </div>
+            <div class="project-links">
+              <a
+                href="https://github.com/PRANAYKHOJARE"
+                class="btn btn-secondary"
+                >Code</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+          <img
+            src="./images/Restaurant.avif"
+            alt="Restaurant Management System"
+            class="project-image"
+          />
+          <div class="project-content">
+            <h3 class="project-title">Restaurant Management System</h3>
+            <p class="project-description">
+              Web-based application to automate restaurant operations.
+              Implemented role-based access for admin, staff, and customers to
+              manage orders, tables, and billing. Applied SE principles with UML
+              diagrams, ER models, and DFDs.
+            </p>
+            <div class="project-tech">
+              <span class="tech">Java</span>
+              <span class="tech">PHP</span>
+              <span class="tech">MySQL</span>
+              <span class="tech">HTML/CSS</span>
+            </div>
+            <div class="project-links">
+              <a
+                href="https://github.com/PRANAYKHOJARE"
+                class="btn btn-secondary"
+                >Code</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+          <img
+            src="./images/btec.png"
+            alt="BTEC Service Website"
+            class="project-image"
+          />
+          <div class="project-content">
+            <h3 class="project-title">Website for BTEC Service Pvt Ltd</h3>
+            <p class="project-description">
+              Developed and deployed a responsive corporate website for Pune's
+              largest service provider using HTML, CSS, and JavaScript.
+              Integrated Formspree for email notifications and incorporated
+              client branding with interactive features.
+            </p>
+            <div class="project-tech">
+              <span class="tech">HTML</span>
+              <span class="tech">CSS</span>
+              <span class="tech">JavaScript</span>
+              <span class="tech">Formspree</span>
+            </div>
+            <div class="project-links">
+              <a
+                href="https://github.com/PRANAYKHOJARE"
+                class="btn btn-secondary"
+                >Code</a
+              >
+              <a
+        href="https://btecservice.co.in/"
+        class="btn btn-primary"
+        target="_blank"
+        >Live Demo</a
+      >
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+          <img
+            src="./images/eclipse.png"
+            alt="Eclipse Tech Website"
+            class="project-image"
+          />
+          <div class="project-content">
+            <h3 class="project-title">Business Website — Eclipse Tech</h3>
+            <p class="project-description">
+              Built a responsive and SEO-friendly business website using HTML5,
+              CSS3, and Bootstrap with optimized performance for cross-device
+              compatibility.
+            </p>
+            <div class="project-tech">
+              <span class="tech">HTML5</span>
+              <span class="tech">CSS3</span>
+              <span class="tech">Bootstrap</span>
+            </div>
+            <div class="project-links">
+              <a
+                href="https://github.com/PRANAYKHOJARE"
+                class="btn btn-secondary"
+                >Code</a
+              >
+            </div>
+          </div>
+        </div>
+
+       <!-- Project 7-->
+<div class="project-card" data-aos="fade-up" data-aos-delay="500">
+  <img
+    src="./images/ecommerce.png"
+    alt="Full-Stack E-Commerce Website"
+    class="project-image"
+  />
+  <div class="project-content">
+    <h3 class="project-title">Full-Stack E-Commerce Website</h3>
+    <p class="project-description">
+      Currently developing a full-stack E-Commerce web application using the
+      MERN stack. Features include product catalog, user authentication,
+      shopping cart, order management, and Stripe integration for secure
+      payments. Backend will provide APIs with JWT authentication, role-based
+      access, and MongoDB support. Responsive React.js frontend ensures a smooth
+      shopping experience.
+    </p>
+    <div class="project-tech">
+      <span class="tech">React.js</span>
+      <span class="tech">Node.js</span>
+      <span class="tech">Express.js</span>
+      <span class="tech">MongoDB</span>
+      <span class="tech">JWT</span>
+      <span class="tech">Stripe</span>
+      <span class="tech">Tailwind CSS</span>
+    </div>
+    <div class="project-links">
+      <a
+        href="https://github.com/PRANAYKHOJARE"
+        class="btn btn-secondary"
+        >Code</a
+      >
+      <!-- Future Live Demo Button -->
+        <a
+        href="https://forever-frontend-gamma-five.vercel.app/"
+        class="btn btn-primary"
+        target="_blank"
+        >Live Demo</a
+      >
+      <!-- <a href="#" class="btn btn-primary disabled">Live (Coming Soon)</a> -->
+    </div>
+  </div>
+</div>
+
+<!-- Project 8 -->
+<div class="project-card" data-aos="fade-up" data-aos-delay="800">
+  <img
+    src="./images/netflix clomne.png"
+    alt="Netflix Clone"
+    class="project-image"
+  />
+  <div class="project-content">
+    <h3 class="project-title">Netflix Clone</h3>
+    <p class="project-description">
+      Built a fully responsive Netflix clone using React.js and TMDB API for
+      fetching movie data. Implemented Firebase authentication and dynamic
+      routing to replicate the real Netflix experience. Features include
+      category browsing, hover trailers, and adaptive design for all devices.
+      Deployed live on Vercel.
+    </p>
+    <div class="project-tech">
+      <span class="tech">React.js</span>
+      <span class="tech">TMDB API</span>
+      <span class="tech">Firebase</span>
+      <span class="tech">CSS3</span>
+      <span class="tech">Vercel</span>
+    </div>
+    <div class="project-links">
+      <a
+        href="https://github.com/PRANAYKHOJARE"
+        class="btn btn-secondary"
+        target="_blank"
+        >Code</a
+      >
+      <a
+        href="https://vidora-movie.vercel.app/"
+        class="btn btn-primary"
+        target="_blank"
+        >Live Demo</a
+      >
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Project 10 -->
+<div class="project-card" data-aos="fade-up" data-aos-delay="1000">
+  <img
+    src="./images/e-learning frontend.png"
+    alt="Kaksha | E-Learning Website (Frontend)"
+    class="project-image"
+  />
+  <div class="project-content">
+    <h3 class="project-title">Kaksha | E-Learning Website (Frontend)</h3>
+    <p class="project-description">
+      Developed a responsive and visually appealing <strong>E-Learning platform frontend</strong> 
+      using <strong>React.js</strong> and <strong>Vite</strong>. Integrated smooth animations, 
+      dynamic navigation, and interactive course sections to enhance user engagement. 
+      Deployed seamlessly on <strong>Vercel</strong> for fast performance, scalability, 
+      and a professional user experience.
+    </p>
+    <div class="project-tech">
+      <span class="tech">React.js</span>
+      <span class="tech">Vite</span>
+      <span class="tech">JavaScript</span>
+      <span class="tech">Web Development</span>
+      <span class="tech">Frontend</span>
+      <span class="tech">Vercel</span>
+    </div>
+    <div class="project-links">
+      <a
+        href="https://github.com/PRANAYKHOJARE/E-learning-website-Frontend"
+        class="btn btn-secondary"
+        target="_blank"
+        >Code</a
+      >
+      <a
+        href="https://e-learning-website-frontend.vercel.app/"
+        class="btn btn-primary"
+        target="_blank"
+        >Live Demo</a
+      >
+    </div>
+  </div>
+</div>
+
+
+<!-- Project 9 - Internship Project -->
+<div class="project-card" data-aos="fade-up" data-aos-delay="900">
+  <img
+    src="./images/Ai workout diet planner .png"
+    alt="AI Workout & Diet Planner (Internship Project)"
+    class="project-image"
+  />
+  <div class="project-content">
+    <h3 class="project-title">
+      AI Workout & Diet Planner <span class="badge">Internship Project</span>
+    </h3>
+    <p class="project-description">
+      Created as part of my <strong>AI & Cloud Internship</strong> with 
+      <strong>Edunet Foundation – IBM SkillsBuild</strong>, this AI-powered 
+      application generates personalized <strong>workout</strong> and 
+      <strong>diet plans</strong> based on user preferences such as goals, 
+      body type, and lifestyle. Built using <strong>Python</strong> and 
+      <strong>Streamlit</strong>, the app uses basic <strong>machine learning</strong> 
+      logic to recommend fitness routines and nutrition plans, and is deployed 
+      on <strong>Streamlit Cloud</strong>.
+    </p>
+    <div class="project-tech">
+      <span class="tech">Python</span>
+      <span class="tech">Streamlit</span>
+      <span class="tech">Machine Learning</span>
+      <span class="tech">IBM SkillsBuild</span>
+      <span class="tech">Cloud Deployment</span>
+    </div>
+    <div class="project-links">
+      <a
+        href="https://github.com/PRANAYKHOJARE"
+        class="btn btn-secondary"
+        target="_blank"
+        >Code</a
+      >
+      <a
+        href="https://pranaykhojare-personalized-workout-diet-planner-with-app-kew0yj.streamlit.app/"
+        class="btn btn-primary"
+        target="_blank"
+        >Live Demo</a
+      >
+    </div>
+  </div>
+</div>    
+
+<div class="project-card">
+  <img src="./images/3.png" alt="AI Network Intrusion Detection System" class="project-image" />
+  <div class="project-content">
+    <h3 class="project-title">AI-Based Network Intrusion Detection System</h3>
+    <p class="project-description">
+      Built during Cybersecurity with Generative AI Internship. 
+      Developed a Random Forest-based ML model to detect DDoS attacks 
+      using the CIC-IDS2017 dataset. Integrated Generative AI for 
+      automated threat explanation and built a real-time interactive dashboard using Streamlit.
+    </p>
+    <div class="project-tech">
+      <span class="tech">Python</span>
+      <span class="tech">Random Forest</span>
+      <span class="tech">Scikit-learn</span>
+      <span class="tech">Streamlit</span>
+      <span class="tech">Cybersecurity</span>
+    </div>
+    <div class="project-links">
+      <a href="https://github.com/PRANAYKHOJARE/AI-Based-Network-Intrusion-Detection-System-Intership-Project-2-" 
+         class="btn btn-secondary" target="_blank">Code</a>
+      <a href="https://huggingface.co/spaces/Pranaykhojare/aibasednetworkscanner" 
+         class="btn btn-primary" target="_blank">Live</a>
+    </div>
+  </div>
+</div>
+
+
+<div class="project-card">
+  <img src="./images/2.png" alt="AI Student Placement Predictor" class="project-image" />
+  <div class="project-content">
+    <h3 class="project-title">AI-Based Student Placement Readiness Predictor</h3>
+    <p class="project-description">
+      Developed during Microsoft Elevate Internship (AICTE + Microsoft). 
+      Built a machine learning system using Random Forest to predict 
+      student placement readiness based on academic performance and skill metrics. 
+      Delivered actionable improvement insights through an interactive Streamlit interface.
+    </p>
+    <div class="project-tech">
+      <span class="tech">Python</span>
+      <span class="tech">Random Forest</span>
+      <span class="tech">Machine Learning</span>
+      <span class="tech">Streamlit</span>
+      <span class="tech">Azure</span>
+    </div>
+    <div class="project-links">
+      <a href="https://github.com/PRANAYKHOJARE/AI-Based-Student-Placement-Readiness-Predictor-3rd-internship-project" 
+         class="btn btn-secondary" target="_blank">Code</a>
+    </div>
+  </div>
+</div>
+
+
+
+</section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="contact-container">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <h3>Email</h3>
+              <p>Khojarepranay6@gmail.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div>
+              <h3>Phone</h3>
+              <p>+91 9359142086</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <h3>Location</h3>
+              <p>Amravati, Maharashtra, India</p>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/pranay-khojare-a23505211/" class="social-link"
+          ><i class="fab fa-linkedin-in"></i
+        ></a>
+        <a href="https://github.com/PRANAYKHOJARE" class="social-link"
+          ><i class="fab fa-github"></i
+        ></a>
+        <a href="https://www.instagram.com/pranay_k23/" class="social-link"
+          ><i class="fab fa-instagram"></i
+        ></a>
+      </div>
+      <p>&copy; 2026 Pranay Khojare. All rights reserved.</p>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+      // Particles.js initialization
+      document.addEventListener("DOMContentLoaded", function () {
+        particlesJS("particles-js", {
+          particles: {
+            number: {
+              value: 80,
+              density: {
+                enable: true,
+                value_area: 800,
+              },
+            },
+            color: {
+              value: "#00F5FF",
+            },
+            shape: {
+              type: "circle",
+              stroke: {
+                width: 0,
+                color: "#000000",
+              },
+              polygon: {
+                nb_sides: 5,
+              },
+            },
+            opacity: {
+              value: 0.5,
+              random: false,
+              anim: {
+                enable: false,
+                speed: 1,
+                opacity_min: 0.1,
+                sync: false,
+              },
+            },
+            size: {
+              value: 3,
+              random: true,
+              anim: {
+                enable: false,
+                speed: 40,
+                size_min: 0.1,
+                sync: false,
+              },
+            },
+            line_linked: {
+              enable: true,
+              distance: 150,
+              color: "#4A00E0",
+              opacity: 0.4,
+              width: 1,
+            },
+            move: {
+              enable: true,
+              speed: 2,
+              direction: "none",
+              random: false,
+              straight: false,
+              out_mode: "out",
+              bounce: false,
+              attract: {
+                enable: false,
+                rotateX: 600,
+                rotateY: 1200,
+              },
+            },
+          },
+          interactivity: {
+            detect_on: "canvas",
+            events: {
+              onhover: {
+                enable: true,
+                mode: "grab",
+              },
+              onclick: {
+                enable: true,
+                mode: "push",
+              },
+              resize: true,
+            },
+            modes: {
+              grab: {
+                distance: 140,
+                line_linked: {
+                  opacity: 1,
+                },
+              },
+              bubble: {
+                distance: 400,
+                size: 40,
+                duration: 2,
+                opacity: 8,
+                speed: 3,
+              },
+              repulse: {
+                distance: 200,
+                duration: 0.4,
+              },
+              push: {
+                particles_nb: 4,
+              },
+              remove: {
+                particles_nb: 2,
+              },
+            },
+          },
+          retina_detect: true,
+        });
+
+              // ✅ Global background animation (visible across the whole site)
+      particlesJS("particles-bg", {
+        particles: {
+          number: { value: 70, density: { enable: true, value_area: 900 } },
+          color: { value: "#00F5FF" },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#4A00E0",
+            opacity: 0.4,
+            width: 1,
+          },
+          move: { enable: true, speed: 2, out_mode: "out" },
+          size: { value: 2 },
+          opacity: { value: 0.7 },
+        },
+        interactivity: {
+          events: { onhover: { enable: true, mode: "grab" } },
+          modes: { grab: { distance: 140, line_linked: { opacity: 0.8 } } },
+        },
+        retina_detect: true,
+      });
+
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+              behavior: "smooth",
+            });
+
+            // Close mobile menu if open
+            if (hamburger.classList.contains("active")) {
+              hamburger.classList.remove("active");
+              navLinks.classList.remove("active");
+            }
+          });
+        });
+
+        // Hamburger menu functionality
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        hamburger.addEventListener("click", () => {
+          hamburger.classList.toggle("active");
+          navLinks.classList.toggle("active");
+        });
+
+        // Close menu when clicking outside on mobile
+        document.addEventListener("click", (e) => {
+          if (
+            window.innerWidth <= 768 &&
+            !e.target.closest(".nav-links") &&
+            !e.target.closest(".hamburger") &&
+            navLinks.classList.contains("active")
+          ) {
+            hamburger.classList.remove("active");
+            navLinks.classList.remove("active");
+          }
+        });
+
+        // Form submission with email functionality
+        const contactForm = document.getElementById("contactForm");
+        const toast = document.getElementById("toast");
+
+        function showToast(message, isError = false) {
+          toast.textContent = message;
+          toast.className = isError ? "toast error show" : "toast show";
+
+          setTimeout(() => {
+            toast.className = "toast";
+          }, 3000);
+        }
+
+        contactForm.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(contactForm);
+          const data = Object.fromEntries(formData.entries());
+
+          try {
+            // Using FormSubmit.co to handle form submissions
+            const response = await fetch(
+              "https://formsubmit.co/ajax/Khojarepranay6@gmail.com",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                },
+                body: JSON.stringify({
+                  name: data.name,
+                  email: data.email,
+                  message: data.message,
+                }),
+              }
+            );
+
+            const result = await response.json();
+
+            if (response.ok) {
+              showToast(
+                "Message sent successfully! I will get back to you soon."
+              );
+              contactForm.reset();
+            } else {
+              showToast(
+                "Failed to send message. Please try again later.",
+                true
+              );
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            showToast("An error occurred. Please try again later.", true);
+          }
+        });
+
+        // Animate timeline items on scroll
+        const timelineItems = document.querySelectorAll(".timeline-item");
+        function checkScroll() {
+          timelineItems.forEach((item) => {
+            const itemTop = item.getBoundingClientRect().top;
+            if (itemTop < window.innerHeight - 100) {
+              item.style.opacity = "1";
+              item.style.transform = "translateX(0)";
+            }
+          });
+        }
+
+        // Initialize timeline items
+        timelineItems.forEach((item, index) => {
+          item.style.opacity = "0";
+          if (index % 2 === 0) {
+            item.style.transform = "translateX(-50px)";
+          } else {
+            item.style.transform = "translateX(50px)";
+          }
+          item.style.transition = "all 0.5s ease";
+        });
+
+        window.addEventListener("scroll", checkScroll);
+        checkScroll(); // Run once on load
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+      var typed = new Typed("#typed", {
+        strings: [
+          "Full Stack Web Developer",
+          "DSA Enthusiast",
+          "AI/ML Learner",
+          "Frontend Specialist",
+        ],
+        typeSpeed: 50,
+        backSpeed: 25,
+        loop: true,
+      });
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>
